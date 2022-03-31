@@ -11,8 +11,8 @@
 # production
 /build
 # connection module and api key
-/backend/models/connexion.js
-/backend/routes/index.js
+/backend/models
+/backend/routes
 # misc
 .DS_Store
 .env.local
