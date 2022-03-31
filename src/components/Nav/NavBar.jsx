@@ -12,7 +12,7 @@ const NavBar = () => {
     return (
 <Navbar bg="light" expand="sm">
   <Container className='text-white w-100 bg-light' >
-    <Navbar.Brand href="#home">Pintabook</Navbar.Brand>
+    <Navbar.Brand href="/">Pintabook</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">

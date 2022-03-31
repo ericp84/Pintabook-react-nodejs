@@ -8,12 +8,12 @@ const Login = () => {
             <div className="col-md-6 mx-auto m-5">
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+                        <label for="exampleInputEmail1">Adresse mail</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse mail"/>
                     </div>
                     <div class="form-group mt-5">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                        <label for="exampleInputPassword1">Mot de passe</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe"/>
                     </div>
                     
                     <div class="d-flex justify-content-between align-items-center">
@@ -26,7 +26,7 @@ const Login = () => {
                         <a href="/">Mot de passe oublié ?</a>
                     </div>
                     <div className="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                        <button type="submit" class="btn btn-primary mt-5">Connexion</button>
                     </div>
                 </form>
             </div>
