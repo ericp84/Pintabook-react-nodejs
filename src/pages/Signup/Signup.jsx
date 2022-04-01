@@ -1,6 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Badge} from 'reactstrap';
 
 const Signup = () => {
+    const[firstname, setFirstname] = useState('');
+    const[lastname, setLastname] = useState('');
+    const[password, setPassword] = useState('');
+    const[email, setEmail] = useState('');
+    const[errors, setErrors] = useState([]);
+
+    let handleRegister = async () => {
+        const user = await fetch('http://192.168.1.105:3000/signup', {
+            method: "POST",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `firstname=${firstname}&lastname=${lastname}&email=${email}&password=${password}`
+        })
+        const userUp = await user.json();
+
+        if(!userUp.result) {
+            setErrors(userUp.error)
+        }
+    }
+    let errorsUp = errors.map((err, i)=> {
+        return <Badge className="text-center mt-5" color="danger" key={i}>{err}</Badge>
+    })
+console.log(firstname, lastname, password, email)
     return (
         <>
             <div className="row">
@@ -9,24 +32,56 @@ const Signup = () => {
                     <form>
                         <div className="row">
                             <div className="col-md-6">
-                                <label for="exampleInputEmail1">Prénom 📛</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Prénom"/>
+                                <label htmlFor="firstname">Prénom 📛</label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="firstname" 
+                                    name="firstname"  
+                                    placeholder="Prénom"
+                                    onChange={(e)=>setFirstname(e.target.value)}
+                                />
                             </div>
                             <div className="col-md-6">
-                                <label for="exampleInputEmail1">Nom 📛</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nom"/>
+                                <label htmlFor="lastname">Nom 📛</label>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="lastname" 
+                                    name="lastname" 
+                                    placeholder="Nom"
+                                    onChange={(e)=>setLastname(e.target.value)}
+                                    />
                             </div>
                         </div>
-                        <div class="form-group mt-3">
-                            <label for="exampleInputEmail1">Adresse mail 📧</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse mail"/>
+                        <div className="form-group mt-3">
+                            <label htmlFor="email">Adresse mail 📧</label>
+                            <input 
+                                type="email" 
+                                className="form-control" 
+                                id="email" 
+                                name="email" 
+                                placeholder="Adresse mail" 
+                                autoComplete='username'
+                                onChange={(e)=>setEmail(e.target.value)}
+                            />
                         </div>
-                        <div class="form-group mt-3">
-                            <label for="exampleInputPassword1">Mot de passe 🔐</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe"/>
+                        <div className="form-group mt-3">
+                            <label htmlFor="password">Mot de passe 🔐</label>
+                            <input 
+                                type="password" 
+                                className="form-control" 
+                                id="password" 
+                                name="password" 
+                                placeholder="Mot de passe" 
+                                autoComplete='current-password'
+                                onChange={(e)=>setPassword(e.target.value)}
+                                />
                         </div>
                         <div className="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary mt-5">Créer le compte</button>
+                        {errorsUp}
+
+                            <button type="submit" className="btn btn-primary mt-5" onClick={()=>handleRegister()}>Créer le compte</button>
                         </div>
                     </form>
                 </div>
