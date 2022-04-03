@@ -14,7 +14,7 @@ const root = ReactDOMClient.createRoot(rootElement)
 root.render(
   <BrowserRouter>
     <NavBar/>
-    <App tab="home" />
+    <App/>
   </BrowserRouter>
   )
 

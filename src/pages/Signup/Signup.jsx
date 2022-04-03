@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Badge} from 'reactstrap';
+import {useNavigate} from 'react-router-dom'
+
 
 const Signup = () => {
     const[firstname, setFirstname] = useState('');
@@ -7,6 +9,10 @@ const Signup = () => {
     const[password, setPassword] = useState('');
     const[email, setEmail] = useState('');
     const[errors, setErrors] = useState([]);
+    const [userExist, setUserExist] = useState(false);
+
+    const nav = useNavigate();
+
 
     let handleRegister = async () => {
         const user = await fetch('http://192.168.1.105:3000/signup', {
@@ -15,15 +21,21 @@ const Signup = () => {
             body: `firstname=${firstname}&lastname=${lastname}&email=${email}&password=${password}`
         })
         const userUp = await user.json();
-        console.log(userUp)
 
-        if(userUp.result === false) {
-            setErrors(userUp.result)
-        }
+        userUp.result ? setUserExist(true) : setErrors(userUp.error)
     }
+
+    useEffect(()=> {
+        if(userExist) {
+                return nav("/")
+            }
+        }, [nav, userExist])
+
     let errorsUp = errors.map((err, i)=> {
         return <Badge className="text-center mt-5" color="danger" key={i}>{err}</Badge>
     })
+
+
 
     return (
         <>
@@ -80,9 +92,8 @@ const Signup = () => {
                                 />
                         </div>
                         <div className="d-grid gap-2">
-                        {errorsUp}
-
-                            <button type="submit" className="btn btn-primary mt-5" onClick={()=>handleRegister()}>Créer le compte</button>
+                            {errorsUp}
+                            <button type="submit" className="btn btn-primary mt-5" onClick={(e)=>handleRegister(e.preventDefault())}>Créer le compte</button>
                         </div>
                     </form>
                 </div>

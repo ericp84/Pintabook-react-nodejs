@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { Card, CardText, CardBody,
-    CardTitle, CardImg } from 'reactstrap';
 
 const Home = () => {
 const [Pins, setPins] = useState([]);
@@ -19,7 +17,7 @@ useEffect(()=> {
 
 let pin = Pins.map((p, i) => {
     return (
-                <article className="pin bg-white rounded shadow-lg m-5">
+                <article className="pin bg-white rounded shadow-lg m-5" key={i}>
                     <div className="mw-100 rounded-top overflow-hidden ">
                         <img src="#" alt="" />
                             <h1 className="h5 p-3 text-secondary text-decoration-none">{p.title}</h1>
