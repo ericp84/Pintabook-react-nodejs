@@ -15,15 +15,16 @@ const Signup = () => {
             body: `firstname=${firstname}&lastname=${lastname}&email=${email}&password=${password}`
         })
         const userUp = await user.json();
+        console.log(userUp)
 
-        if(!userUp.result) {
-            setErrors(userUp.error)
+        if(userUp.result === false) {
+            setErrors(userUp.result)
         }
     }
     let errorsUp = errors.map((err, i)=> {
         return <Badge className="text-center mt-5" color="danger" key={i}>{err}</Badge>
     })
-console.log(firstname, lastname, password, email)
+
     return (
         <>
             <div className="row">

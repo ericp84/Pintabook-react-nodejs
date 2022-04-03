@@ -91,10 +91,9 @@ router.post("/signup", async function (req, res) {
     result = true
     }
   }
+  console.log(error)
   res.json({newUser, result, error})
 })
-
-
 /////// login ///////
 router.post('/login', async function (req, res) {
   let result = false;
@@ -117,6 +116,7 @@ router.post('/login', async function (req, res) {
       console.log("error connex", error)
     }
   }
+  console.log(user)
   res.json({result, user, error, token})
 })
 

@@ -7,7 +7,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
-    const [userExist, setUserExist] = useState(false);
+    // const [userExist, setUserExist] = useState(false);
 
     let handleLogin = async () => {
         const user = await fetch ('http://192.168.1.105:3000/login', {
@@ -23,7 +23,6 @@ const Login = () => {
     let errorsIn = errors.map((err, i) => {
         return <Badge className="text-center mt-5" color="danger" key={i}>{err}</Badge>
     })
-    console.log(email, password, errors)
 
     return (
         <>
