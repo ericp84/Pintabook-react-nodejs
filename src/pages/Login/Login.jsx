@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Badge} from 'reactstrap';
 
 
@@ -9,17 +9,18 @@ const Login = () => {
     const [errors, setErrors] = useState([]);
     // const [userExist, setUserExist] = useState(false);
 
-    let handleLogin = async () => {
+        const handleLogin = async () => {
         const user = await fetch ('http://192.168.1.105:3000/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: `email=${email}&password=${password}`
         })
         const userIn = await user.json();
-        if(!userIn.result) {
+        if(userIn.result === false) {
             setErrors (userIn.error)
         }
     }
+
     let errorsIn = errors.map((err, i) => {
         return <Badge className="text-center mt-5" color="danger" key={i}>{err}</Badge>
     })
@@ -65,8 +66,8 @@ const Login = () => {
                         <a href="/">Mot de passe oublié ?</a>
                     </div>
                     <div className="d-grid gap-2">
-                        {errorsIn}
-                        <button type="submit" className="btn btn-primary mt-5" onClick={()=>handleLogin()}>Connexion</button>
+                    {errorsIn}
+                        <button type="submit" className="btn btn-primary mt-5" onClick={(e)=>handleLogin(e.preventDefault())} formNoValidate>Connexion</button>
                     </div>
                 </form>
             </div>
