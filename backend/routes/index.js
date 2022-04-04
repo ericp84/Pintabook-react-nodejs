@@ -39,7 +39,6 @@ router.post("/signup", async function (req, res) {
   let error = []
   let token = null;
   let hash = bcrypt.hashSync(req.body.password, 10);
-  let mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   /////// check if the user is already register in DB ///////
   const userdata = await userModel.findOne({
@@ -94,26 +93,21 @@ router.post('/login', async function (req, res) {
 /////// check server side validations /////// 
   if(req.body.password === '' || req.body.email === ''
     ){
-      error.push('champs vides')
+      error.push('Veuillez vérifier vos informations')
     }
 /////// is everything is ok the server send request to DB ///////
   if(error.length === 0) {
     user = await userModel.findOne({
       email : req.body.email
-    })}
-/////// then server check if the register password match with the encrypted password ///////    
-    if(user) {
-      const passCrypt = bcrypt.compareSync(req.body.password, user.password);
-      if(passCrypt === user.password) {
-        result =true;
-        token = user.token;
-      } else {
-        result = false;
-        error.push('mot de passe incorrect')
-      }
+    })
+    if(bcrypt.compareSync(req.body.password, user.password)) {
+      result =true;
+      token = user.token;
     } else {
-      error.push('email incorrect')
-    }  
+      error.push('veuillez vérifier vos informations')
+    }
+  }
+/////// then server check if the register password match with the encrypted password ///////      
   res.json({result, user, error, token})
 })
 

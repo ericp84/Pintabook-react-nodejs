@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Badge} from 'reactstrap';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
 
 
-const Login = () => {
+const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
@@ -21,8 +22,8 @@ const Login = () => {
             body: `email=${email}&password=${password}`
         })
         const userIn = await user.json();
-        console.log(userIn);
-        userIn.result ? setUserExist(true) : setErrors(userIn.error);
+        console.log(userIn.user.firstName);
+        userIn.result ? setUserExist(true) && props.addPseudo(userIn.user.firstName) : setErrors(userIn.error);
         }
         
         useEffect(()=> {
@@ -87,4 +88,15 @@ const Login = () => {
     );
 };
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+    return {
+        addPseudo: function(pseudo) {
+            dispatch({type: 'addPseudo', pseudo: pseudo})
+        }
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Login);

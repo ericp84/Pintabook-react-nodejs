@@ -24,27 +24,18 @@ let pin = Pins.map((p, i) => {
                             <p className="text-muted p-3">
                                 <small>submitted by</small>
                             </p>
-                            <p className="text-break">
+                            <p className="text-break p-3">
                                 {p.description}
                             </p>
                     </div>
                 </article>
-
-
-    // <Card key={i}  style={{width: 400}}>
-    //     <CardBody>
-    //         <CardImg src="#"/>
-    //         <CardTitle>{p.title}</CardTitle>
-    //         <CardText>{p.description}</CardText>
-    //     </CardBody>
-    // </Card>
     )
 })
     return (
         <>
             <h1 className='text-center m-5'>Découvrez les meilleurs pins du monde ! 🌎</h1>
-                <div className="row mb-5 bg-light d-flex justify-content-center">
-                    <div className="col-md-6 d-flex">
+                <div className="row mb-5 bg-light d-flex justify-content-center overflow-hidden">
+                    <div className="col-md-8 d-flex flex-wrap justify-content-center boverflow-hidden">
                         {pin}
                     </div>
                 </div>
