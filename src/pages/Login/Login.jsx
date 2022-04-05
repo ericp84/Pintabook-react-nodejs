@@ -16,20 +16,26 @@ const Login = (props) => {
 
 
         const handleLogin = async () => {
-        const user = await fetch ('http://192.168.1.105:3000/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: `email=${email}&password=${password}`
-        })
-        const userIn = await user.json();
-        console.log(userIn.user.firstName);
-        userIn.result ? setUserExist(true) && props.addPseudo(userIn.user.firstName) : setErrors(userIn.error);
+            const user = await fetch ('http://192.168.1.105:3000/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `email=${email}&password=${password}`
+            })
+            const userIn = await user.json();
+            console.log("userin json",userIn);
+            if(userIn.result === false) {
+                setErrors(userIn.error)
+                console.log(userIn.error)
+                return nav("/login")
+            } else {            
+                setUserExist(true)         
+                props.addPseudo(userIn.user.firstName)
+            }
         }
-        
         useEffect(()=> {
         if(userExist) {
-                return nav("/")
-            }
+            return nav("/")
+        }
         }, [nav, userExist])
    
 

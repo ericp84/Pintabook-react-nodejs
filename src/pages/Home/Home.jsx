@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import Layout from '../../Layouts/Layout';
 
-const Home = () => {
+const Home = (props) => {
 const [Pins, setPins] = useState([]);
-
 useEffect(()=> {
      const pini = async() => {
         const pinstart = await fetch ('http://192.168.1.105:3000/recuppin')
@@ -12,9 +13,6 @@ useEffect(()=> {
     }
     pini()
 }, [])
-
-
-
 let pin = Pins.map((p, i) => {
     return (
                 <article className="pin bg-white rounded shadow-lg m-5" key={i}>
@@ -33,7 +31,7 @@ let pin = Pins.map((p, i) => {
 })
     return (
         <>
-            <h1 className='text-center m-5'>Découvrez les meilleurs pins du monde ! 🌎</h1>
+            <h1 className='text-center m-5'>Découvrez les meilleurs pins du monde {props.pseudo} ! 🌎</h1>
                 <div className="row mb-5 bg-light d-flex justify-content-center overflow-hidden">
                     <div className="col-md-8 d-flex flex-wrap justify-content-center boverflow-hidden">
                         {pin}
@@ -43,4 +41,12 @@ let pin = Pins.map((p, i) => {
     );
 };
 
-export default Home;
+function mapStateToProps(state) {
+    return {pseudo: state.pseudo}
+}
+export default connect (
+    mapStateToProps,
+    null
+)(Home);
+
+

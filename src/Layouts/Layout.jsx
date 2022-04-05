@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../components/Nav/NavBar';
 import Footer from '../components/Footer/Footer';
-const Laytous = () => {
+const Layout = () => {
     return (
         <>
            <NavBar/>
@@ -9,4 +9,4 @@ const Laytous = () => {
     );
 };
 
-export default Laytous;
+export default Layout;
