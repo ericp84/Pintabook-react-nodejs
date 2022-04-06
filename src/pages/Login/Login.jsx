@@ -28,8 +28,11 @@ const Login = (props) => {
                 console.log(userIn.error)
                 return nav("/login")
             } else {            
-                setUserExist(true)         
+                setUserExist(true) 
+                console.log(userIn.token)        
+                console.log(userIn.user.firstName)        
                 props.addPseudo(userIn.user.firstName)
+                props.addToken(userIn.token)
             }
         }
         useEffect(()=> {
@@ -96,6 +99,9 @@ const Login = (props) => {
 
 function mapDispatchToProps(dispatch) {
     return {
+        addToken: function(token) {
+            dispatch({type: 'addToken', token: token})
+        },
         addPseudo: function(pseudo) {
             dispatch({type: 'addPseudo', pseudo: pseudo})
         }
